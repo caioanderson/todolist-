@@ -1,15 +1,10 @@
-import styled, { css } from 'styled-components/native';
+import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 import { Feather,  } from '@expo/vector-icons';
 
 export const Container = styled.View`
     margin-top: 16px; 
 `
-
-export const Teste = styled.Text`
-
-`;
-
 interface NotationProps{
     completed : boolean;
 }

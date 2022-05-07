@@ -4,25 +4,68 @@ import { Annotation } from '../../components/Annotation';
 
 import {
     Container, Header, CardInfoToDoList, Logo, Icon, Info, Content, Title,
+    ListAnnotations, Modal
 } from './styles';
 
 export function Home() {
 
-    const data = [
+    const [visibleModal, setVisibleModal] = useState(false);
+
+    const dataAnnotations = [
         {
+            id: '1',
             note: 'Regar plantas',
             completed: false,
-            date: '24/07'
+            date: Intl.DateTimeFormat('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+            }).format(new Date())
+
         },
         {
+            id: '2',
             note: 'Fazer compras',
             completed: true,
-            date: '24/07'
+            date: Intl.DateTimeFormat('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+            }).format(new Date())
         },
         {
+            id: '3',
             note: 'Comida do cachorro',
             completed: false,
-            date: '24/07'
+            date: Intl.DateTimeFormat('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+            }).format(new Date())
+        },
+        {
+            id: '4',
+            note: 'Terminar atividade',
+            completed: false,
+            date: Intl.DateTimeFormat('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+            }).format(new Date())
+        },
+        {
+            id: '5',
+            note: 'Entregar trabalho',
+            completed: false,
+            date: Intl.DateTimeFormat('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+            }).format(new Date())
+        },
+        {
+            id: '6',
+            note: 'Aula as 5h',
+            completed: false,
+            date: Intl.DateTimeFormat('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+            }).format(new Date())
         },
 
     ]
@@ -36,17 +79,23 @@ export function Home() {
                     <Icon />
                 </Logo>
 
-                <Info>Você tem x anotações{`\n`}cadastradas</Info>
+                <Info>Você tem {dataAnnotations.length} anotações{`\n`}cadastradas</Info>
             </CardInfoToDoList>
 
             <Content>
                 <Title>Todas as anotações</Title>
 
-
-                {data.map((item, index) => <Annotation key={index} data={item} />)}
-
+                <ListAnnotations
+                    data={dataAnnotations}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => <Annotation key={item.id} data={item} />}
+                />
 
             </Content>
+
+            <Modal visible={false}>
+
+            </Modal>
 
         </Container>
     )

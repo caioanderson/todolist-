@@ -6,6 +6,7 @@ import { GestureHandlerRootView, RectButton } from 'react-native-gesture-handler
 import { Container, Notation, When, Light, ButtonDelete, Trash } from './styles';
 
 interface AnnotationData {
+    id: string;
     note: string;
     completed: boolean;
     date: string;
@@ -33,6 +34,7 @@ export function Annotation({ data }: AnnotationProps) {
                                 <ButtonDelete>
                                     <Trash />
                                 </ButtonDelete>
+
                             </GestureHandlerRootView>
                         </View>
                     </Animated.View>

@@ -1,5 +1,7 @@
 import styled from 'styled-components/native';
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { FlatList, FlatListProps } from 'react-native';
+
+import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
 import { Ionicons } from '@expo/vector-icons';
 
 export const Container = styled.View`
@@ -40,7 +42,7 @@ export const Icon = styled(Ionicons).attrs({
     color: '#4965E9',
 })`
     padding: 14px;
-`;
+` as unknown as typeof Ionicons;
 
 export const Info = styled.Text`
     font-family: ${({ theme }) => theme.fonts.regular};
@@ -58,5 +60,28 @@ export const Title = styled.Text`
     font-family: ${({ theme }) => theme.fonts.semi_bold};
     font-size: 24px;
     color: ${({ theme }) => theme.colors.green_900};
+`;
+
+interface AnnotationData {
+    id: string;
+    note: string;
+    completed: boolean;
+    date: string;
+}
+
+export const ListAnnotations = styled(
+    FlatList as new (props: FlatListProps<AnnotationData>) => FlatList<AnnotationData>
+).attrs({
+    showsVerticalScrollIndicator: false,
+    contentContainerStyle: { paddingBottom: getBottomSpace() },
+})``;
+
+export const Modal = styled.Modal.attrs({
+    animationType: "slide",
+    transparent: true,
+    swipeDirection: ['up', 'left', 'right', 'down']
+})`
+    margin: 0;
+    justify-content: flex-end;
 `;
 
