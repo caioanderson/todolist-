@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { Annotation } from '../../components/Annotation';
+import { ModalRemove } from '../../components/ModalRemove';
 
 import {
     Container, Header, CardInfoToDoList, Logo, Icon, Info, Content, Title,
@@ -94,7 +95,7 @@ export function Home() {
             </Content>
 
             <Modal visible={false}>
-
+                <ModalRemove />
             </Modal>
 
         </Container>

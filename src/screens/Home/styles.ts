@@ -79,9 +79,11 @@ export const ListAnnotations = styled(
 export const Modal = styled.Modal.attrs({
     animationType: "slide",
     transparent: true,
-    swipeDirection: ['up', 'left', 'right', 'down']
+    // swipeDirection: ['up', 'left', 'right', 'down']
 })`
-    margin: 0;
-    justify-content: flex-end;
+    flex: 1;
+    align-items: center;
+    justifyContent: center;
+    background-color: ${({ theme }) => theme.colors.blue_700};
+    /* justify-content: ; */
 `;
-
