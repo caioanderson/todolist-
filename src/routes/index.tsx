@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AntDesign, Feather } from '@expo/vector-icons';
 
 import { Home } from '../screens/Home';
+import { NewAnnotation } from '../screens/NewAnnotation';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,7 +29,8 @@ export function Routes() {
                         paddingVertical: Platform.OS === 'ios' ? 20 : 0,
                     }
                 }}>
-                <Tab.Screen name='Nova anotação' component={Home}
+
+                <Tab.Screen name='Nova anotação' component={NewAnnotation}
                     options={{
                         tabBarIcon: (({ size, color }) => (
                             <AntDesign name="pluscircleo" size={size} color={color} />

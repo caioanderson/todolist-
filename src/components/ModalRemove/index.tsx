@@ -8,7 +8,12 @@ import {
     TextButtonCancel, ButtonDelete, TextButtonDelete
 } from './styles';
 
-export function ModalRemove() {
+
+interface ModalRemoteProps{
+    closeModal: () => void;
+}
+
+export function ModalRemove({ closeModal } : ModalRemoteProps) {
 
     const theme = useTheme();
 
@@ -17,9 +22,11 @@ export function ModalRemove() {
             <AreaModal>
                 <Title>Deseja mesmo deletar{`\n`}essa anotação?</Title>
                 <ContainerButtons>
-                    
+
                     <GestureHandlerRootView>
-                        <BorderlessButton style={[
+                        <BorderlessButton 
+                        onPress={closeModal}
+                        style={[
                             styled.button,
                             { backgroundColor: theme.colors.gray }
                         ]}

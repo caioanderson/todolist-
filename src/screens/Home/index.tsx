@@ -71,6 +71,10 @@ export function Home() {
 
     ]
 
+    function onPressCloseModal(){
+        setVisibleModal(!visibleModal);
+    }
+
     return (
         <Container>
             <Header>To do list</Header>
@@ -89,13 +93,13 @@ export function Home() {
                 <ListAnnotations
                     data={dataAnnotations}
                     keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => <Annotation key={item.id} data={item} />}
+                    renderItem={({ item }) => <Annotation key={item.id} data={item} onPress={() => setVisibleModal(true)}/>}
                 />
 
             </Content>
-
-            <Modal visible={false}>
-                <ModalRemove />
+ 
+            <Modal visible={visibleModal}>
+                <ModalRemove closeModal={onPressCloseModal}/>
             </Modal>
 
         </Container>

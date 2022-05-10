@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Animated, StyleSheet } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { GestureHandlerRootView, RectButton } from 'react-native-gesture-handler';
+import { GestureHandlerRootView, RectButton, RectButtonProps } from 'react-native-gesture-handler';
 
 import { Container, Notation, When, Light, ButtonDelete, Trash } from './styles';
 
@@ -12,11 +12,11 @@ interface AnnotationData {
     date: string;
 }
 
-interface AnnotationProps {
+interface AnnotationProps extends RectButtonProps {
     data: AnnotationData;
 }
 
-export function Annotation({ data }: AnnotationProps) {
+export function Annotation({ data, ...rest }: AnnotationProps) {
 
     const [isCompleted, setIsCompleted] = useState(data.completed);
 
@@ -31,7 +31,7 @@ export function Annotation({ data }: AnnotationProps) {
                     <Animated.View>
                         <View>
                             <GestureHandlerRootView>
-                                <ButtonDelete>
+                                <ButtonDelete {...rest}>
                                     <Trash />
                                 </ButtonDelete>
 
