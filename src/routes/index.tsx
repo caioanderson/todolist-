@@ -1,13 +1,13 @@
 import React from 'react';
-import { Platform, Text } from 'react-native';
-import { useTheme } from 'styled-components';
 import { NavigationContainer } from '@react-navigation/native';
+import { Platform } from 'react-native';
+import { useTheme } from 'styled-components';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { AntDesign, Feather } from '@expo/vector-icons';
 
 import { Home } from '../screens/Home';
-import { NewAnnotation } from '../screens/NewAnnotation';
+import { StackRoutes } from './app.routes';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,7 +30,7 @@ export function Routes() {
                     }
                 }}>
 
-                <Tab.Screen name='Nova anotação' component={NewAnnotation}
+                <Tab.Screen name='Nova anotação' component={StackRoutes}
                     options={{
                         tabBarIcon: (({ size, color }) => (
                             <AntDesign name="pluscircleo" size={size} color={color} />
@@ -38,7 +38,8 @@ export function Routes() {
                         tabBarLabelStyle: {
                             fontFamily: theme.fonts.medium,
                             fontSize: 15
-                        }
+                        },
+                        tabBarStyle: { display: "none" },
                     }} />
 
 
