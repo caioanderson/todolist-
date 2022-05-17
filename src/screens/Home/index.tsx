@@ -92,7 +92,7 @@ export function Home() {
                         <LottieView
                             source={animation}
                             loop
-                            autoPlay={true}
+                            autoPlay
                             resizeMode='contain'
                             autoSize
                         />

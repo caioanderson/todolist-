@@ -14,7 +14,7 @@ export function Confirmation() {
     useEffect(() => {
         setTimeout(() => {
             goHome();
-        }, 3000)
+        }, 2000)
     }, [])
 
     return (
