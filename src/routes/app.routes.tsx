@@ -1,18 +1,56 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Platform } from 'react-native';
+import { useTheme } from 'styled-components';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-const { Navigator, Screen } = createNativeStackNavigator();
+import { AntDesign, Feather } from '@expo/vector-icons';
 
+import { Home } from '../screens/Home';
 import { NewAnnotation } from '../screens/NewAnnotation';
 
-export interface NavigationStack {
-    navigate: (value: string) => void;
-}
+const Tab = createBottomTabNavigator();
 
-export function StackRoutes(){
-    return(
-        <Navigator screenOptions={{ headerShown: false }}>
-            <Screen name='Create' component={NewAnnotation}/>
-        </Navigator>
+export function Routes() {
+
+    const theme = useTheme();
+
+    return (
+        <Tab.Navigator
+            initialRouteName='Minhas anotações'
+            screenOptions={{
+                headerShown: false,
+                tabBarActiveTintColor: theme.colors.blue_700,
+                tabBarInactiveTintColor: theme.colors.green_300,
+                tabBarLabelPosition: 'beside-icon',
+                tabBarStyle: {
+                    height: 88,
+                    paddingVertical: Platform.OS === 'ios' ? 20 : 0,
+                }
+            }}>
+
+            <Tab.Screen name='Nova anotação' component={NewAnnotation}
+                options={{
+                    tabBarIcon: (({ size, color }) => (
+                        <AntDesign name="pluscircleo" size={size} color={color} />
+                    )),
+                    tabBarLabelStyle: {
+                        fontFamily: theme.fonts.medium,
+                        fontSize: 15
+                    },
+                    tabBarStyle: { display: "none" },
+                }} />
+
+
+            <Tab.Screen name='Minhas anotações' component={Home}
+                options={{
+                    tabBarIcon: (({ size, color }) => (
+                        <Feather name="list" size={size} color={color} />
+                    )),
+                    tabBarLabelStyle: {
+                        fontFamily: theme.fonts.medium,
+                        fontSize: 15
+                    }
+                }} />
+        </Tab.Navigator>
     )
 }

@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, StyleSheet, Dimensions } from 'react-native';
-import { getBottomSpace } from 'react-native-iphone-x-helper';
+import { KeyboardAvoidingView, StyleSheet, Dimensions, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { NavigationStack } from '../../routes/app.routes';
 import { GestureHandlerRootView, BorderlessButton } from 'react-native-gesture-handler';
+import { getBottomSpace } from 'react-native-iphone-x-helper';
+import uuid from 'react-native-uuid';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { NavigationStack } from '../../routes';
 
 import {
     Container, Header, IconBack, WrapperContentHeader, Title, Content, Subtitle,
@@ -14,7 +17,6 @@ import Illustration from '../../assets/illustration.svg';
 
 const widthScreen = Dimensions.get('screen').width - 41;
 const bottomSpace = getBottomSpace() + 15;
-
 
 export function NewAnnotation() {
 
@@ -43,6 +45,39 @@ export function NewAnnotation() {
     function goBack() {
         navigate('Minhas anotações');
     }
+    
+    async function saveAnnotation() {
+        const newAnnotationFormatted = {
+            id: uuid.v4(),
+            note: annotation,
+            completed: false,
+            date: Intl.DateTimeFormat('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+            }).format(new Date())
+        }
+        
+        setAnnotation(' ');
+        
+        try {
+
+            const allAnnotations = await AsyncStorage.getItem('@toDoList');
+            let annotation = allAnnotations !== null ? JSON.parse(allAnnotations) : {};
+            let listAnnotations = [];
+            
+            if (Object.keys(annotation).length === 0) {
+                listAnnotations.push(newAnnotationFormatted)
+            } else {
+                listAnnotations = [...annotation, newAnnotationFormatted];
+            }
+
+            await AsyncStorage.setItem('@toDoList', JSON.stringify(listAnnotations));
+
+            navigate('Confirmation');
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <Container>
@@ -54,7 +89,7 @@ export function NewAnnotation() {
                 </GestureHandlerRootView>
 
                 <KeyboardAvoidingView
-                    behavior="padding"
+                    behavior={Platform.OS == 'ios' ? "padding" : "height"}
                     style={{ flex: 1 }}
                 >
                     <WrapperContentHeader>
@@ -77,6 +112,7 @@ export function NewAnnotation() {
                 </WrapperContent>
                 <GestureHandlerRootView>
                     <BorderlessButton
+                        onPress={saveAnnotation}
                         enabled={annotation === '' ? false : true}
                         style={[styled.button, { backgroundColor: annotation === '' ? '#A4B2F4' : '#4965E9' }]}>
                         <TextButton>Criar</TextButton>

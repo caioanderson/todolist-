@@ -5,8 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 
 import theme from './src/global/styles/theme';
 
-import { Home } from './src/screens/Home';
-import { Routes } from './src/routes';
+import { StackRoutes } from './src/routes';
 
 import {
   useFonts,
@@ -25,8 +24,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Routes />
-      {/* <Home /> */}
+      <StackRoutes />
       <StatusBar style="dark" />
     </ThemeProvider>
   );

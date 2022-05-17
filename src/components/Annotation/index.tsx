@@ -5,7 +5,7 @@ import { GestureHandlerRootView, RectButton, RectButtonProps } from 'react-nativ
 
 import { Container, Notation, When, Light, ButtonDelete, Trash } from './styles';
 
-interface AnnotationData {
+export interface AnnotationData {
     id: string;
     note: string;
     completed: boolean;

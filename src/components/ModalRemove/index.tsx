@@ -2,18 +2,20 @@ import React from 'react';
 import { useTheme } from 'styled-components';
 import { StyleSheet } from 'react-native';
 import { BorderlessButton, GestureHandlerRootView } from 'react-native-gesture-handler';
+import { AnnotationData } from '../Annotation';
 
 import {
-    Container, AreaModal, Title, ContainerButtons, ButtonCancel,
-    TextButtonCancel, ButtonDelete, TextButtonDelete
+    Container, AreaModal, Title, ContainerButtons, TextButtonCancel,
+    TextButtonDelete
 } from './styles';
 
-
-interface ModalRemoteProps{
+interface ModalRemoteProps {
     closeModal: () => void;
+    deleteAnnotation: (item: AnnotationData) => void;
+    annotation: AnnotationData;
 }
 
-export function ModalRemove({ closeModal } : ModalRemoteProps) {
+export function ModalRemove({ closeModal, deleteAnnotation, annotation }: ModalRemoteProps) {
 
     const theme = useTheme();
 
@@ -24,22 +26,24 @@ export function ModalRemove({ closeModal } : ModalRemoteProps) {
                 <ContainerButtons>
 
                     <GestureHandlerRootView>
-                        <BorderlessButton 
-                        onPress={closeModal}
-                        style={[
-                            styled.button,
-                            { backgroundColor: theme.colors.gray }
-                        ]}
+                        <BorderlessButton
+                            onPress={closeModal}
+                            style={[
+                                styled.button,
+                                { backgroundColor: theme.colors.gray }
+                            ]}
                         >
                             <TextButtonCancel>Cancelar</TextButtonCancel>
                         </BorderlessButton>
                     </GestureHandlerRootView>
 
                     <GestureHandlerRootView>
-                        <BorderlessButton style={[
-                            styled.button,
-                            { backgroundColor: theme.colors.background_delete }
-                        ]}
+                        <BorderlessButton
+                            onPress={() => deleteAnnotation(annotation)}
+                            style={[
+                                styled.button,
+                                { backgroundColor: theme.colors.background_delete }
+                            ]}
                         >
                             <TextButtonDelete>Deletar</TextButtonDelete>
                         </BorderlessButton>

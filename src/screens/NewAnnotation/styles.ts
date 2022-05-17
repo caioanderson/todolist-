@@ -7,11 +7,6 @@ export const Container = styled.View`
     background-color: ${({ theme }) => theme.colors.shape};
 `;
 
-// export const Container = styled.KeyboardAvoidingView`
-//      flex: 1;
-//      background-color: ${({ theme }) => theme.colors.shape};
-// `;
-
 export const Header = styled.View`
     padding: 0 30px;
     padding-top: ${getStatusBarHeight() + 34}px;
