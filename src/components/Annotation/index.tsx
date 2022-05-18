@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Animated, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { GestureHandlerRootView, RectButton, RectButtonProps } from 'react-native-gesture-handler';
 
@@ -20,8 +21,25 @@ export function Annotation({ data, ...rest }: AnnotationProps) {
 
     const [isCompleted, setIsCompleted] = useState(data.completed);
 
-    function handleCompleted() {
-        setIsCompleted(!isCompleted)
+    async function handleCompleted() {
+        setIsCompleted(!isCompleted);
+
+        const annotationsValues = await AsyncStorage.getItem('@toDoList');
+        const dataAnnotations = annotationsValues !== null ? JSON.parse(annotationsValues) : [];
+
+        if (dataAnnotations !== undefined) {
+            const annotationsCopy = [...dataAnnotations];
+            const indexAnnotationToEdit = annotationsCopy.findIndex(
+                (annotation: AnnotationData) => annotation.id === data.id);
+
+            annotationsCopy[indexAnnotationToEdit].completed = !data.completed;
+            
+            await AsyncStorage.setItem('@toDoList', JSON.stringify(annotationsCopy));
+          
+        }
+
+
+
     }
 
     return (
